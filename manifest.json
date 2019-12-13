@@ -1,16 +1,25 @@
 {
-    "name": "Travel History Helper",
+    "name": "CIC PR TableHelper",
     "version": "1.0",
-    "description": "Allows to load data from a .csv file",
+    "description": "Allows to load data from a .csv file and adds up/down buttons to all tables.",
     "permissions": ["storage", "declarativeContent"],
-    "content_scripts": [{
-        "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do?section=personalHistory*"],
-        "js": [
-            "content.js"
-        ]
-    }],
+    "content_scripts": [
+        {
+            "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do*"],
+            "js": [
+                "content_updown_buttons.js"
+            ]
+        },
+        {
+            "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do?section=personalHistory*"],
+            "js": [
+                "content_upload_csv.js"
+            ]
+        }
+    ],
     "web_accessible_resources": [
-        "inject.js"
+        "inject_updown_buttons.js",
+        "inject_upload_csv.js"
     ],
     "manifest_version": 2
 }
