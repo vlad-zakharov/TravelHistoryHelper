@@ -5,7 +5,7 @@
     butt.id = "travelhistory-file-button";
     butt.type = 'file';
     butt.style.cssText = "width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;";
-    butt.addEventListener('change', foo)
+    butt.addEventListener('change', foo);
 
     var labl = document.createElement('label');
     labl.className = addBtn.className;
@@ -14,11 +14,61 @@
 
     addBtn.parentNode.insertBefore(butt, addBtn.nextSibling);
     addBtn.parentNode.insertBefore(labl, addBtn.nextSibling);
+
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+        if (settings.url.match(/^\/eapp\/loadData.do.*/) != null)
+        {
+            insertUpDownButtons();
+        }
+    });
 })();
 
 function foo()
 {
     uploadFile(this.files);
+}
+
+function insertUpDownButtons()
+{
+    var rowCount = $('#tblAppendGrid_travelHistoryItems').appendGrid('getRowCount');
+
+    for(var i = 1; i <= rowCount ; i++){
+        deleteButtonId = '#travelHistoryItems_Delete_' + i.toString();
+        var deleteButton = $('#travelHistoryItems').find(deleteButtonId)[0];
+
+        var buttonUp = document.createElement('input');
+        buttonUp.type = 'button';
+        buttonUp.className = deleteButton.className;
+        buttonUp.value = "\u21E7";
+        buttonUp.addEventListener('click', moveGridRowUp);
+
+        var buttonDown = document.createElement('input');
+        buttonDown.type = 'button';
+        buttonDown.value = "\u21E9";
+        buttonDown.className = deleteButton.className;
+        buttonDown.addEventListener('click', moveGridRowDown);
+
+        deleteButton.parentNode.insertBefore(buttonUp, deleteButton.nextSibling);
+        buttonUp.parentNode.insertBefore(buttonDown, buttonUp.nextSibling);
+    }
+}
+
+function getRowNumber(evtObj)
+{
+    return evtObj.path[2].rowIndex - 1;
+}
+
+function moveGridRowUp(evtObj, uniqueIndex, rowData) {
+	var rowIndex = getRowNumber(evtObj);
+    var item = getItem("#tblAppendGrid_travelHistoryItems");
+    item.appendGrid('moveUpRow', rowIndex);
+}
+
+function moveGridRowDown(evtObj)
+{
+	var rowIndex = getRowNumber(evtObj);
+    var item = getItem("#tblAppendGrid_travelHistoryItems");
+    item.appendGrid('moveDownRow', rowIndex);
 }
 
 function getItem(selector)
@@ -40,8 +90,6 @@ function uploadFile(files)
             // Regex to match cities. Can't use split
             var arr = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
             arr = arr || [];
-
-            console.log(arr);
 
             var countryName = arr[0].replace(/['"]+/g, '');
             var countryLovId = getLovIdForCountryName(countryName);
