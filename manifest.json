@@ -1,6 +1,6 @@
 {
     "name": "CIC PR TableHelper",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Allows to load data from a .csv file and adds up/down buttons to all tables.",
     "permissions": ["storage", "declarativeContent"],
     "content_scripts": [

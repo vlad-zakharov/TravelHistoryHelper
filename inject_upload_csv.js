@@ -5,7 +5,7 @@
     butt.id = "travelhistory-file-button";
     butt.type = 'file';
     butt.style.cssText = "width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;";
-    butt.addEventListener('change', foo);
+    butt.addEventListener('change', csv_uploadFile);
 
     var labl = document.createElement('label');
     labl.className = addBtn.className;
@@ -16,19 +16,9 @@
     addBtn.parentNode.insertBefore(labl, addBtn.nextSibling);
 })();
 
-function foo()
+function csv_uploadFile(files)
 {
-    uploadFile(this.files);
-}
-
-function getItem(selector)
-{
-    return $(selector);
-}
-
-function uploadFile(files)
-{
-    var file = files[0];
+    var file = this.files[0];
 
     var reader = new FileReader()
     reader.onload = function(progressEvent){
@@ -42,16 +32,16 @@ function uploadFile(files)
             arr = arr || [];
 
             var countryName = arr[0].replace(/['"]+/g, '');
-            var countryLovId = getLovIdForCountryName(countryName);
+            var countryLovId = csv_getLovIdForCountryName(countryName);
             if (countryLovId === -1)
             {
               countryName = "PROBLEM HERE";
             }
-            var item = getItem("#tblAppendGrid_travelHistoryItems");
+            var item = getElement("#tblAppendGrid_travelHistoryItems");
             item.appendGrid('appendRow', [
                 {
-                    arrivalDate: prepareDate(arr[2]),
-                    departureDate: prepareDate(arr[1]),
+                    arrivalDate: csv_prepareDate(arr[2]),
+                    departureDate: csv_prepareDate(arr[1]),
                     divCol: "travelHistoryItemsContent",
                     isOngoing: "false",
                     selected: "false",
@@ -64,7 +54,7 @@ function uploadFile(files)
             var countryCtrl = item.appendGrid("getCellCtrl", "visitingCountry", lastIndex + i);
             countryCtrl.setAttribute("data-lovid", countryLovId);
         }
-            // add to page
+            // update on page
             validateAgainstServer(0, gridId, divId);
      	    updateGrid(gridId);
     };
@@ -72,12 +62,12 @@ function uploadFile(files)
     reader.readAsText(file);
 }
 
-function prepareDate(oldDate)
+function csv_prepareDate(oldDate)
 {
     return oldDate.split('.').reverse().join('-');
 }
 
-function getLovIdForCountryName(country)
+function csv_getLovIdForCountryName(country)
 {
     var visCountry = $("#visitingCountry").find("option").filter(function (index, elem) {
         return elem.text === country.replace(/['"]+/g, '');
