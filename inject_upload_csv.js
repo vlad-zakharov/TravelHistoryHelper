@@ -1,4 +1,9 @@
 (function() {
+    csv_injectButton();
+})();
+
+function csv_injectButton()
+{
     var addBtn = $('#travelHistoryItems').find('#saveAndAddBtn')[0];
 
     var butt = document.createElement('input');
@@ -14,7 +19,7 @@
 
     addBtn.parentNode.insertBefore(butt, addBtn.nextSibling);
     addBtn.parentNode.insertBefore(labl, addBtn.nextSibling);
-})();
+}
 
 function csv_uploadFile(files)
 {
@@ -54,9 +59,9 @@ function csv_uploadFile(files)
             var countryCtrl = item.appendGrid("getCellCtrl", "visitingCountry", lastIndex + i);
             countryCtrl.setAttribute("data-lovid", countryLovId);
         }
-            // update on page
-            validateAgainstServer(0, gridId, divId);
-     	    updateGrid(gridId);
+        // update on page
+        validateAgainstServer(0, gridId, divId);
+        updateGrid(gridId);
     };
 
     reader.readAsText(file);
