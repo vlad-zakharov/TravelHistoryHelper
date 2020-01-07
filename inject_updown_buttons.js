@@ -24,13 +24,19 @@ function upb_insertUpDownButtons()
             buttonUp.type = 'button';
             buttonUp.className = deleteButton.className;
             buttonUp.value = "\u21E7";
-            buttonUp.addEventListener('click', upb_moveGridRowUp);
+            buttonUp.disabled = deleteButton.disabled;
+            if (!buttonUp.disabled){
+                buttonUp.addEventListener('click', upb_moveGridRowUp);
+            }
 
             var buttonDown = document.createElement('input');
             buttonDown.type = 'button';
             buttonDown.value = "\u21E9";
             buttonDown.className = deleteButton.className;
-            buttonDown.addEventListener('click', upb_moveGridRowDown);
+            buttonDown.disabled = deleteButton.disabled;
+            if (!buttonDown.disabled){
+                buttonDown.addEventListener('click', upb_moveGridRowDown);
+            }
 
             deleteButton.parentNode.insertBefore(buttonUp, deleteButton.nextSibling);
             buttonUp.parentNode.insertBefore(buttonDown, buttonUp.nextSibling);

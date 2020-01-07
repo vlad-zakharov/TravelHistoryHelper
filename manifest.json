@@ -6,7 +6,10 @@
     "permissions": ["storage", "declarativeContent"],
     "content_scripts": [
         {
-            "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do*"],
+            "matches": [
+                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do*",
+                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/eeForm.do*"
+            ],
             "js": [
                 "content_updown_buttons.js"
             ]
