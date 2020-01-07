@@ -31,7 +31,8 @@ function csv_uploadFile(files)
         var divId = 'travelHistoryItemsContent';
         var lastIndex = $('#tblAppendGrid_travelHistoryItems').appendGrid('getRowCount');
         var lines = this.result.split('\n');
-        for(var i = 0; i < 50 - lastIndex ; i++){
+        var iterateTo = lines.length - 1 < 50 - lastIndex ? lines.length - 1 : 50 - lastIndex;
+        for(var i = 0; i < iterateTo; i++){
             // Regex to match cities. Can't use split
             var arr = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
             arr = arr || [];
@@ -65,6 +66,7 @@ function csv_uploadFile(files)
     };
 
     reader.readAsText(file);
+    this.value = '';
 }
 
 function csv_prepareDate(oldDate)
