@@ -31,7 +31,11 @@ function csv_uploadFile(files)
         var divId = 'travelHistoryItemsContent';
         var lastIndex = $('#tblAppendGrid_travelHistoryItems').appendGrid('getRowCount');
         var lines = this.result.split('\n');
-        var iterateTo = lines.length - 1 < 50 - lastIndex ? lines.length - 1 : 50 - lastIndex;
+        lines = lines.filter(function(el) {
+            return el != "";
+        });
+
+        var iterateTo = lines.length < 50 - lastIndex ? lines.length : 50 - lastIndex;
         for(var i = 0; i < iterateTo; i++){
             // Regex to match cities. Can't use split
             var arr = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
