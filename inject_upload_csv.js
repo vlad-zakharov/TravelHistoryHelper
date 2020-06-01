@@ -5,6 +5,7 @@
 function csv_injectButton()
 {
     var addBtn = $('#travelHistoryItems').find('#saveAndAddBtn')[0];
+    if(!addBtn) return;
 
     var butt = document.createElement('input');
     butt.id = "travelhistory-file-button";
