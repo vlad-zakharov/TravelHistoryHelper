@@ -2,7 +2,11 @@
     "name": "IRCC PR TableHelper",
     "version": "1.7",
     "description": "Allows to load data from a .csv file and adds up/down buttons to all tables.",
-    "icons": { "640" : "canada128.png"},
+    "icons": {
+        "16" : "canada16.png",
+        "48" : "canada48.png",
+        "128" : "canada128.png"
+    },
     "permissions": ["storage", "declarativeContent"],
     "content_scripts": [
         {
