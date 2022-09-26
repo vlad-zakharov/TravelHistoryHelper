@@ -7,15 +7,15 @@
     "content_scripts": [
         {
             "matches": [
-                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do*",
-                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/eeForm.do*"
+                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm*",
+                "https://onlineservices-servicesenligne.cic.gc.ca/eapp/eeForm*"
             ],
             "js": [
                 "content_updown_buttons.js"
             ]
         },
         {
-            "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm.do?section=personalHistory*"],
+            "matches": ["https://onlineservices-servicesenligne.cic.gc.ca/eapp/prForm?section=personalHistory*"],
             "js": [
                 "content_upload_csv.js"
             ]

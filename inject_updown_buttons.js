@@ -1,7 +1,7 @@
 (function() {
     $(document).ajaxSuccess(function(event, xhr, settings) {
-        if ((settings.url.match(/^\/eapp\/loadData.do.*/) != null) ||
-            (settings.url.match(/^\/eapp\/showNext.do.*/) != null))
+        if ((settings.url.match(/^\/eapp\/loadData.*/) != null) ||
+            (settings.url.match(/^\/eapp\/showNext.*/) != null))
         {
             upb_insertUpDownButtons();
             // if we can insert csv button and if it is not present. Workaround
