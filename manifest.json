@@ -25,9 +25,14 @@
             ]
         }
     ],
-    "web_accessible_resources": [
-        "inject_updown_buttons.js",
-        "inject_upload_csv.js"
-    ],
-    "manifest_version": 2
+    "web_accessible_resources": [{
+        "resources": [
+            "inject_updown_buttons.js",
+            "inject_upload_csv.js"
+        ],
+        "matches": [
+            "https://onlineservices-servicesenligne.cic.gc.ca/*"
+        ]
+    }],
+    "manifest_version": 3
 }
